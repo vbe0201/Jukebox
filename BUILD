@@ -8,8 +8,11 @@ cc_binary(
   name = "jukebox",
   srcs = [
     "main.cc",
+    "config.cc",
   ],
-  hdrs = [],
+  hdrs = [
+    "config.h",
+  ],
   visibility = ["//visibility:public", "@yaml_cpp//:libyaml-cpp.so"],
 )
 

@@ -10,7 +10,7 @@ cc_binary(
     "main.cc",
   ],
   hdrs = [],
-  visibility = ["//visibility:public"],
+  visibility = ["//visibility:public", "@yaml_cpp//:libyaml-cpp.so"],
 )
 
 cc_test(

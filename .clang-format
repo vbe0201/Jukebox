@@ -1,0 +1,3 @@
+# ClangFormat configuration file, for documentation visit: https://clang.llvm.org/docs/ClangFormat.html
+---
+BasedOnStyle: Google

@@ -7,13 +7,14 @@ exports_files(["LICENSE"])
 cc_binary(
   name = "jukebox",
   srcs = [
-    "main.cc",
-    "config.cc",
+    "src/jukebox/main.cc",
+    "src/jukebox/config.h",
+    "src/jukebox/config.cc",
   ],
-  hdrs = [
-    "config.h",
+  visibility = ["//visibility:public"],
+  deps = [
+    "@yaml_cpp//:yaml-cpp",
   ],
-  visibility = ["//visibility:public", "@yaml_cpp//:libyaml-cpp.so"],
 )
 
 cc_test(
@@ -21,5 +22,5 @@ cc_test(
   srcs = [],
   args = [],
   visibility = ["//visibility:public"],
-  deps = [":double-conversion"],
+  deps = [":jukebox"],
 )

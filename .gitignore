@@ -64,3 +64,6 @@ dkms.conf
 
 # CMake
 cmake-build-*/
+
+# Bazel build helpers
+bazel-*/

@@ -19,4 +19,4 @@ doc/               export-ignore
 # Correctly handle the language detection of linguist
 *.h       linguist-language=C++
 BUILD     linguist-language=Python
-WORKSPACE linguist-language=Pyhton
+WORKSPACE linguist-language=Python

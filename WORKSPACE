@@ -34,12 +34,8 @@ cc_library(
   srcs = glob([
     "celt/*.c",
     "silk/*.c",
-    "silk/float/*.c"
-  ],
-  exclude = [
-    "celt/opus_custom_demo.c",
+    "silk/float/*.c",
   ]) + [
-    "config.h",
     "src/analysis.c",
     "src/mlp.c",
     "src/mlp_data.c",
@@ -51,6 +47,14 @@ cc_library(
     "src/opus_multistream_encoder.c",
     "src/repacketizer.c",
   ],
+  hdrs = glob([
+    "celt/*.h",
+    "include/*.h",
+    "silk/*.h",
+    "silk/float/*.h",
+    "src/*.h",
+  ]),
+  includes = ["celt", "include", "silk", "silk/float"],
   copts = [
     '-DHAVE_CONFIG_H',
     '-I$(GENDIR)/opus/opus',  # For config.h.

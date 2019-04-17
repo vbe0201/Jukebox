@@ -14,6 +14,7 @@ cc_binary(
   visibility = ["//visibility:public"],
   deps = [
     "@yaml_cpp//:yaml-cpp",
+    "@opus//:libopus",
   ],
 )
 

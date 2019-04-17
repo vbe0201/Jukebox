@@ -27,55 +27,76 @@ new_local_repository(
   name = "opus",
   path = "externals/opus",
   build_file_content = """
+licenses(["notice"])
+
 exports_files(["COPYING"])
 
 cc_library(
   name = "libopus",
   srcs = glob([
     "celt/*.c",
+    "celt/x86/*.c",
     "silk/*.c",
     "silk/float/*.c",
-  ]) + [
-    "src/analysis.c",
-    "src/mlp.c",
-    "src/mlp_data.c",
-    "src/opus.c",
-    "src/opus_decoder.c",
-    "src/opus_encoder.c",
-    "src/opus_multistream.c",
-    "src/opus_multistream_decoder.c",
-    "src/opus_multistream_encoder.c",
-    "src/repacketizer.c",
+    "silk/x86/*.c",
+    "src/*.c",
   ],
+  exclude = [
+    "celt/opus_custom_demo.c",
+    "src/opus_demo.c",
+    "src/repacketizer_demo.c",
+  ]),
   hdrs = glob([
     "celt/*.h",
+    "celt/x86/*.h",
     "include/*.h",
     "silk/*.h",
     "silk/float/*.h",
+    "silk/x86/*.h",
     "src/*.h",
-  ]),
-  includes = ["celt", "include", "silk", "silk/float"],
+  ]) + ["config.h"],
+  includes = [".", "celt", "include", "silk", "silk/float", "src"],
   copts = [
-    '-DHAVE_CONFIG_H',
-    '-I$(GENDIR)/opus/opus',  # For config.h.
-    '-Iopus/opus/celt',
-    '-Iopus/opus/include',
-    '-Iopus/opus/silk',
-    '-Iopus/opus/silk/fixed',
-    '-Iopus/opus/silk/float',
-    '-std=gnu99',
-    '-O2',
-    '-g',
-    '-fvisibility=hidden',
-    '-W',
-    '-Wall',
-    '-Wextra',
-    '-Wcast-align',
-    '-Wnested-externs',
-    '-Wshadow',
-    '-Wstrict-prototypes',
+    "-DHAVE_CONFIG_H",
+    "-std=gnu99",
+    "-O2",
+    "-g",
+    "-msse4.1",
+    "-maes",
+    "-fvisibility=hidden",
+    "-W",
+    "-Wall",
+    "-Wextra",
+    "-Wcast-align",
+    "-Wnested-externs",
+    "-Wshadow",
+    "-Wstrict-prototypes",
+    "-Wno-sign-compare",
   ],
   visibility = ["//visibility:public"],
+)
+
+genrule(
+  name = "config_h",
+  srcs = [
+    "autogen.sh",
+    "configure.ac",
+    "Makefile.am",
+    "doc/Makefile.am",
+    "NEWS",
+    "README",
+    "AUTHORS",
+    "ChangeLog",
+  ] + glob([
+    "**/*.in",
+    "m4/*.m4",
+    "*.mk",
+    "src/*.c",
+  ]),
+  outs = ["config.h"],
+  cmd = "./$(location autogen.sh) " +
+        "&& ./`dirname $(location autogen.sh)`/configure --enable-optimizations " +
+        "&& cp config.h $(location config.h)",
 )
   """
 )

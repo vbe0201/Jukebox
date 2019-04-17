@@ -4,7 +4,7 @@ namespace jukebox {
 namespace discord {
 namespace opus {
 
-Encoder::Encoder(int application = OPUS_APPLICATION_AUDIO) : application_(application) {
+Encoder::Encoder(int application) : application_(application) {
   CreateState();
 }
 
@@ -44,7 +44,7 @@ void Encoder::SetSignalType(const opus_int32 setting) {
   opus_encoder_ctl(state_, OPUS_SET_SIGNAL(setting));
 }
 
-void Encoder::SetFec(bool enabled = true) {
+void Encoder::SetFec(bool enabled) {
   opus_encoder_ctl(state_, OPUS_SET_INBAND_FEC(enabled));
 }
 

@@ -10,6 +10,8 @@ cc_binary(
     "src/jukebox/main.cc",
     "src/jukebox/config.h",
     "src/jukebox/config.cc",
+    "src/jukebox/discord/opus.cc",
+    "src/jukebox/discord/opus.h",
   ],
   visibility = ["//visibility:public"],
   deps = [

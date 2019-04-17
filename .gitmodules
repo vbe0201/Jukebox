@@ -1,3 +1,6 @@
 [submodule "externals/yaml-cpp"]
 	path = externals/yaml-cpp
 	url = https://github.com/jbeder/yaml-cpp
+[submodule "externals/opus"]
+	path = externals/opus
+	url = https://github.com/xiph/opus
